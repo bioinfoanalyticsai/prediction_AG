@@ -27,7 +27,7 @@ chr2	18720549	18722409
 
 ### Option A: With Nearest Gene Annotation (RECOMMENDED)
 ```bash
-python alphagenome_gtf_pipeline_interval.py your_regions.bed gencode.vM38.basic.annotation.gtf \
+python scripts/alphagenome_gtf_pipeline_interval.py your_regions.bed gencode.vM38.basic.annotation.gtf \
   --api-key YOUR_API_KEY \
   --tissues intestine \
   --buffer 10000 \
@@ -36,15 +36,7 @@ python alphagenome_gtf_pipeline_interval.py your_regions.bed gencode.vM38.basic.
 
 ### Option B: Simple GTF Annotation + AlphaGenome
 ```bash
-python alphagenome_gtf_pipeline.py your_regions.bed gencode.vM38.basic.annotation.gtf \
-  --api-key YOUR_API_KEY \
-  --tissues brain \
-  --output results.csv
-```
-
-### Option C: No GTF (Just Predictions)
-```bash
-python alphagenome_final.py your_regions.bed \
+python scripts/alphagenome_gtf_pipeline_interval.py your_regions.bed gencode.vM38.basic.annotation.gtf \
   --api-key YOUR_API_KEY \
   --tissues brain \
   --output results.csv
@@ -56,7 +48,7 @@ python alphagenome_final.py your_regions.bed \
 
 ### Basic Plots
 ```bash
-python plot_alphagenome_results.py results.csv --output plots/
+python scripts/plot_alphagenome_results.py results.csv --output plots/
 ```
 
 This generates:
@@ -69,7 +61,7 @@ This generates:
 
 ### Enhanced Plots with Biotype Analysis
 ```bash
-python plot_alphagenome_results.py results.csv \
+python scripts/plot_alphagenome_intervals_results.py results.csv \
   --output plots/ \
   --exclude-intergenic \
   --by-biotype
@@ -77,7 +69,7 @@ python plot_alphagenome_results.py results.csv \
 
 ### Publication Quality
 ```bash
-python plot_alphagenome_results.py results.csv \
+python scripts/plot_alphagenome_intervals_results.py results.csv \
   --output publication_figs/ \
   --by-biotype \
   --exclude-intergenic \
@@ -97,7 +89,7 @@ python plot_alphagenome_results.py results.csv \
 ### Method 1: Direct DNA Sequence
 
 ```bash
-python alphagenome_predict_sequence.py \
+python scripts/alphagenome_predict_sequence.py \
   --sequence "GATTACAGATTACA" \
   --api-key YOUR_KEY \
   --tissues brain lung \
@@ -110,7 +102,7 @@ The sequence is automatically padded with 'N's to valid AlphaGenome lengths (16K
 
 ```bash
 # Uses predict_interval (fallback)
-python alphagenome_predict_sequence.py \
+python scripts/alphagenome_predict_sequence.py \
   --chrom chr6 --start 49163874 --end 49165042 \
   --api-key YOUR_KEY \
   --tissues brain
@@ -120,7 +112,7 @@ python alphagenome_predict_sequence.py \
 
 ```bash
 # Fetches sequence from FASTA
-python alphagenome_predict_sequence.py \
+python scripts/alphagenome_predict_sequence.py \
   --chrom chr6 --start 49163874 --end 49165042 \
   --fasta mm10.fa.gz \
   --api-key YOUR_KEY \
@@ -132,7 +124,7 @@ python alphagenome_predict_sequence.py \
 ### Example 1: Simple Sequence
 
 ```bash
-python alphagenome_predict_sequence.py \
+python scripts/alphagenome_predict_sequence.py \
   --sequence "GATTACA" \
   --api-key KEY \
   --tissues lung brain \
@@ -143,27 +135,27 @@ python alphagenome_predict_sequence.py \
 **Output:**
 ```
 sequence_predictions/
-├── custom_0_rna_seq.npy
-├── custom_0_rna_seq.csv
-├── custom_0_cage.npy
-├── custom_0_cage.csv
-├── custom_0_dnase.npy
-├── custom_0_dnase.csv
-└── custom_0_atac.npy
+├── custom_0_None_rna_seq.npy
+├── custom_0_None_rna_seq.csv
+├── custom_0_None_cage.npy
+├── custom_0_None_cage.csv
+├── custom_0_None_dnase.npy
+├── custom_0_None_dnase.csv
+└── custom_0_None_atac.npy
 ```
 
 ### Example 2: Real Sequence with Tissues
 
 ```bash
 # Predict for a known regulatory sequence
-python alphagenome_predict_sequence.py \
+python scripts/alphagenome_predict_sequence.py \
   --sequence "TTAAACAGATCTGAGGTCTCTGAGGCTCCAGAGGATGTAAGAGCCTTCCGCGTTACTGTGCAATGCCGGCCTAAGAGCCGTGTGTAGCAAAAGAGCGCTCCG" \
   --api-key KEY \
   --tissues brain lung intestine \
   --save-npy
 
 # Check predictions
-python plot_sequence_tracks.py \
+python scripts/plot_sequence_tracks.py \
   --npy-file custom_0_rna_seq.npy \
   --chrom custom --start 0 --end 100
 ```
@@ -172,7 +164,7 @@ python plot_sequence_tracks.py \
 
 ```bash
 # Predict from BED file
-python alphagenome_predict_sequence.py \
+python scripts/alphagenome_predict_sequence.py \
   --bed-file regions.bed \
   --fasta mm10.fa.gz \
   --api-key KEY \
