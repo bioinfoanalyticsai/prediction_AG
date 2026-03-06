@@ -4,6 +4,13 @@ Prediction examples using AlphaGenome
 # To run the prediction with AlphaGenome with intervals:
 
 ## Step 1: Prepare Your Data
+### Get API Key to run the job
+Visit the website: https://deepmind.google.com/science/alphagenome/ 
+Click on `Get API Key`
+Complete the Profile
+Accept Terms and Conditions
+Get the Key.
+
 
 ### Get GTF File
 ```bash
